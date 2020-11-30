@@ -1,5 +1,6 @@
 package com.loadease.uberclone.driverapp.Model;
 
+
 import java.util.List;
 
 public class FCMResponse {
@@ -7,18 +8,11 @@ public class FCMResponse {
     public int success;
     public int failture;
     public int canonical_ids;
-    public List<Result> results;
+    public List<FCMResult> results;
 
     public FCMResponse() {
     }
 
-    public FCMResponse(long multicast_id, int success, int failture, int canonical_ids, List<Result> results) {
-        this.multicast_id = multicast_id;
-        this.success = success;
-        this.failture = failture;
-        this.canonical_ids = canonical_ids;
-        this.results = results;
-    }
 
     public long getMulticast_id() {
         return multicast_id;
@@ -52,11 +46,11 @@ public class FCMResponse {
         this.canonical_ids = canonical_ids;
     }
 
-    public List<Result> getResults() {
+    public List<FCMResult> getResults() {
         return results;
     }
 
-    public void setResults(List<Result> results) {
+    public void setResults(List<FCMResult> results) {
         this.results = results;
     }
 }

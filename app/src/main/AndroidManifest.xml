@@ -2,10 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.loadease.uberclone.driverapp">
 
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the "MyLocation" functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -15,22 +20,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/AppTheme">
 
-        >
-        <activity android:name="com.loadease.uberclone.driverapp.Activities.TripHistory"></activity>
-
-        <uses-library
-            android:name="org.apache.http.legacy"
-            android:required="false" />
-
-        <activity android:name="com.loadease.uberclone.driverapp.Activities.Login">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -43,36 +34,43 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name="com.loadease.uberclone.driverapp.Activities.CustommerCall" />
+        <activity
+            android:name=".fragment.FragmentDriver"
+            android:label="@string/title_activity_fragment_driver"></activity>
+        <activity android:name=".Activities.TripHistory" />
 
-<!--        <service android:name="com.loadease.uberclone.driverapp.Service.FirebaseIdService">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />-->
-<!--            </intent-filter>-->
-<!--        </service>-->
-<!--        -->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
 
+        <activity android:name=".Activities.Login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
-
-
-        <service android:name="com.loadease.uberclone.driverapp.Service.firebaseMessaging">
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activities.CustommerCall" /> <!-- <service android:name="com.loadease.uberclone.driverapp.Service.FirebaseIdService"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.google.firebase.INSTANCE_ID_EVENT" /> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
+        <!--  -->
+        <service android:name=".Service.firebaseMessaging">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
         <activity
-            android:name="com.loadease.uberclone.driverapp.Activities.DriverTracking"
+            android:name=".Activities.DriverTracking"
             android:label="@string/title_activity_driver_tracking" />
         <activity
-            android:name="com.loadease.uberclone.driverapp.Activities.TripDetail"
+            android:name=".Activities.TripDetail"
             android:label="@string/title_activity_trip_detail" />
-        <activity
-            android:name="com.loadease.uberclone.driverapp.Activities.DriverHome"
-            android:label="@string/title_activity_drawer_home"
-
-            />
+<!--        <activity-->
+<!--            android:name=".Activities.DriverHome"-->
+<!--            android:label="@string/title_activity_drawer_home" />-->
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -80,6 +78,3 @@
     </application>
 
 </manifest>
-
-
-

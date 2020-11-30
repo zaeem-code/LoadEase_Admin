@@ -1,7 +1,11 @@
 package com.loadease.uberclone.driverapp.Util;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Looper;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +18,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 
 public class Location {
-    AppCompatActivity activity;
+    Context activity;
     private final String permissionFineLocation=android.Manifest.permission.ACCESS_FINE_LOCATION;
     private final String permissionCoarseLocation=android.Manifest.permission.ACCESS_COARSE_LOCATION;
 
@@ -24,25 +28,38 @@ public class Location {
 
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
-    public Location(AppCompatActivity activity, final locationListener locationListener) {
+    public Location(Context activity, final locationListener locationListener) {
         this.activity=activity;
         fusedLocationClient=new FusedLocationProviderClient(activity.getApplicationContext());
 
         inicializeLocationRequest();
-        locationCallback=new LocationCallback(){
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                super.onLocationResult(locationResult);
-                locationListener.locationResponse(locationResult);
-            }
-        };
+
+
+
+
+            locationCallback = new LocationCallback() {
+                @Override
+                public void onLocationResult(LocationResult locationResult) {
+                    super.onLocationResult(locationResult);
+                    locationListener.locationResponse(locationResult);
+                }
+            };
+
+
+
+
     }
     private void inicializeLocationRequest(){
-        locationRequest=new LocationRequest();
-        locationRequest.setInterval(10000);
-        locationRequest.setFastestInterval(3000);
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-    }
+
+
+
+            locationRequest = new LocationRequest();
+            locationRequest.setInterval(10000);
+            locationRequest.setFastestInterval(3000);
+            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+
+        }
     private Boolean validatePermissionsLocation(){
         final Boolean fineLocationAvailable= ActivityCompat.checkSelfPermission(activity.getApplicationContext(), permissionFineLocation)== PackageManager.PERMISSION_GRANTED;
         final Boolean coarseLocationAvailable= ActivityCompat.checkSelfPermission(activity.getApplicationContext(), permissionCoarseLocation)== PackageManager.PERMISSION_GRANTED;
@@ -50,10 +67,10 @@ public class Location {
         return fineLocationAvailable && coarseLocationAvailable;
     }
     private void permissionRequest(){
-        ActivityCompat.requestPermissions(activity, new String[]{permissionFineLocation, permissionCoarseLocation}, REQUEST_CODE_LOCATION);
+        ActivityCompat.requestPermissions((Activity) activity, new String[]{permissionFineLocation, permissionCoarseLocation}, REQUEST_CODE_LOCATION);
     }
     private void requestPermissions(){
-        Boolean contextProvider=ActivityCompat.shouldShowRequestPermissionRationale(activity, permissionFineLocation);
+        Boolean contextProvider=ActivityCompat.shouldShowRequestPermissionRationale((Activity) activity, permissionFineLocation);
 
         if (contextProvider)Message.message(activity.getApplicationContext(), Messages.RATIONALE);
         permissionRequest();
@@ -74,8 +91,18 @@ public class Location {
         this.fusedLocationClient.removeLocationUpdates(locationCallback);
     }
     @SuppressLint("MissingPermission")
-    private void getLocation(){
+    public void getLocation(){
         validatePermissionsLocation();
-        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null);
+
+            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
+
+
+
+        }
+
+    public  void remove_location()
+    {
+        fusedLocationClient.removeLocationUpdates(locationCallback);
     }
+
 }

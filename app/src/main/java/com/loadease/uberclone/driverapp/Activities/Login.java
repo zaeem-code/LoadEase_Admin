@@ -28,6 +28,7 @@ import com.loadease.uberclone.driverapp.Helpers.FirebaseHelper;
 import com.loadease.uberclone.driverapp.Messages.Errors;
 import com.loadease.uberclone.driverapp.Messages.Message;
 import com.loadease.uberclone.driverapp.R;
+import com.loadease.uberclone.driverapp.fragment.FragmentDriver;
 
 import java.util.Arrays;
 
@@ -107,7 +108,7 @@ public class Login extends AppCompatActivity implements GoogleApiClient.OnConnec
     protected void onStart() {
         super.onStart();
         if(isLoggedIn){
-            startActivity(new Intent(Login.this, DriverHome.class));
+            startActivity(new Intent(Login.this, FragmentDriver.class));
             finish();
         }
         verifyGoogleAccount();

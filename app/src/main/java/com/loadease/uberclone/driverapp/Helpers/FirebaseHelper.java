@@ -25,10 +25,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.loadease.uberclone.driverapp.Activities.DriverHome;
 import com.loadease.uberclone.driverapp.Common.Common;
 import com.loadease.uberclone.driverapp.Model.User;
 import com.loadease.uberclone.driverapp.R;
+import com.loadease.uberclone.driverapp.fragment.FragmentDriver;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.json.JSONObject;
@@ -279,7 +279,7 @@ public class FirebaseHelper {
         goToMainActivity();
     }
     private void goToMainActivity(){
-        activity.startActivity(new Intent(activity, DriverHome.class));
+        activity.startActivity(new Intent(activity, FragmentDriver.class));
         activity.finish();
     }
     public void registerByGoogleAccount(final GoogleSignInAccount account){

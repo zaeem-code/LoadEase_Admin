@@ -41,11 +41,12 @@
     <string name="action_settings">Settings</string>
 
 
-
-
     <string name="facebook_app_id">374652373852578</string>
     <string name="fb_login_protocol_scheme">fb374652373852578</string>
     <string name="google_maps_key">AIzaSyCFMRJrFq6OajUBDKd42R3t783B0-Rbzdg</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_fragment_driver">Map</string>
 
 
 </resources>
