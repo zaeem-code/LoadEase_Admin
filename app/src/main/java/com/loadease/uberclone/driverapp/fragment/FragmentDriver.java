@@ -104,7 +104,7 @@ public class FragmentDriver extends FragmentActivity implements OnMapReadyCallba
         GoogleApiClient.OnConnectionFailedListener
 {
 
-    
+
     private GoogleMap mMap;
     Location location;
     private Marker currentLocationMarket;
