@@ -69,6 +69,7 @@ import com.kusu.library.LoadingButton;
 import com.loadease.uberclone.driverapp.Common.Common;
 import com.loadease.uberclone.driverapp.Interfaces.locationListener;
 import com.loadease.uberclone.driverapp.Messages.DriverRequestReceived;
+import com.loadease.uberclone.driverapp.Model.LocationUtils;
 import com.loadease.uberclone.driverapp.Model.NotifyToRiderEvent;
 import com.loadease.uberclone.driverapp.Model.RiderModel;
 import com.loadease.uberclone.driverapp.Model.Token;
@@ -1081,16 +1082,89 @@ destinationGeoFire.setLocation(key, new GeoLocation(destination.latitude, destin
     private void makeDriverOnline() {
 
 
-        Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-        List<Address> addressList;
-        try {
 
-            addressList = geocoder.getFromLocation(Common.currentLat,
-                    Common.currentLng, 1);
-            city_name = addressList.get(0).getLocality();
+        String saveCityName=city_name;
+        city_name= LocationUtils.getAddressFromLocation(getApplicationContext());
+
+        if (!city_name.equals(saveCityName))
+        {
+            if (currentUserRef !=null)
+                currentUserRef.removeValue()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                        updateDriverLocation();
+                    }
+                });
+        }
+        else
+        {
+            updateDriverLocation();
+
+        }
 
 
-            drivers = FirebaseDatabase.getInstance().getReference("Drivers")
+//        Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+//        List<Address> addressList;
+//        try {
+//
+//            addressList = geocoder.getFromLocation(Common.currentLat,
+//                    Common.currentLng, 1);
+//            city_name = addressList.get(0).getLocality();
+
+
+//            drivers = FirebaseDatabase.getInstance().getReference("Drivers")
+//                    .child(Common.currentUser.getCarType())
+//                    .child(city_name);
+//
+//
+//            currentUserRef = drivers.child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+//            geoFire = new GeoFire(drivers);
+//
+//
+//            ///update loc
+//
+//            geoFire.setLocation(FirebaseAuth.getInstance().getCurrentUser().getUid(),
+//                    new GeoLocation(Common.currentLat
+//                            ,Common.currentLng),
+//
+//                    (key, error) -> {
+//
+//
+//                        if (error!=null)
+//                        {
+//                            Toast.makeText(FragmentDriver.this, ""+error.getMessage(), Toast.LENGTH_SHORT).show();
+//
+//                        }
+//                        else
+//                        {
+//                            Toast.makeText(FragmentDriver.this, "you are online", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//
+//                    }
+//            );
+//
+//            registerOnlineSystem();
+
+
+
+
+
+//
+//        } catch (Exception e) {
+//
+//        }
+
+
+    }
+
+    private void updateDriverLocation() {
+
+        if (!TextUtils.isEmpty(city_name))
+        {
+                drivers = FirebaseDatabase.getInstance().getReference("Drivers")
                     .child(Common.currentUser.getCarType())
                     .child(city_name);
 
@@ -1124,13 +1198,10 @@ destinationGeoFire.setLocation(key, new GeoLocation(destination.latitude, destin
 
             registerOnlineSystem();
 
-
-
-
-
-
-        } catch (Exception e) {
-
+        }
+        else
+        {
+            Toast.makeText(this, "service unavailable here ", Toast.LENGTH_SHORT).show();
         }
 
 
