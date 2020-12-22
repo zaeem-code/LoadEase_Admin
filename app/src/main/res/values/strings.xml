@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UC Driver</string>
+    <string name="app_name">AdminPanel</string>
     <string name="title_activity_main">Map</string>
     <string name="google_direction_api">AIzaSyCFMRJrFq6OajUBDKd42R3t783B0-Rbzdg</string>
     <string name="tv_login_title">DRIVER</string>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.loadease.uberclone.driverapp">
-
+    package="com.loadease.uberclone.adminpanels">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -21,7 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".Activities.Home"></activity>
+        <activity android:name=".chatIntegration.Activity.MainChatActivity" />
+        <activity android:name=".chatIntegration.Activity.MessageActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -36,7 +37,7 @@
 
         <activity
             android:name=".fragment.FragmentDriver"
-            android:label="@string/title_activity_fragment_driver"></activity>
+            android:label="@string/title_activity_fragment_driver" />
         <activity android:name=".Activities.TripHistory" />
 
         <uses-library
@@ -61,17 +62,23 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <service
+            android:name=".chatIntegration.Notifications.MyFirebaseIdService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
 
         <activity
             android:name=".Activities.DriverTracking"
             android:label="@string/title_activity_driver_tracking" />
         <activity
             android:name=".Activities.TripDetail"
-            android:label="@string/title_activity_trip_detail" />
-<!--        <activity-->
-<!--            android:name=".Activities.DriverHome"-->
-<!--            android:label="@string/title_activity_drawer_home" />-->
-
+            android:label="@string/title_activity_trip_detail" /> <!-- <activity -->
+        <!-- android:name=".Activities.DriverHome" -->
+        <!-- android:label="@string/title_activity_drawer_home" /> -->
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

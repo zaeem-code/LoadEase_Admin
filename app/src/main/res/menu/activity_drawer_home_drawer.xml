@@ -6,16 +6,20 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_trip_history"
-            android:title="TRIP HISTORY" />
+            android:title="Your Rides" />
+
         <item
-            android:id="@+id/nav_car_type"
-            android:title="UPDATE VEHICLE TYPE" />
+            android:id="@+id/notification"
+            android:title="Notification" />
         <item
-            android:id="@+id/nav_change_pwd"
-            android:title="CHANGE PASSWORD" />
+            android:id="@+id/wallet"
+            android:title="Cash" />
         <item
-            android:id="@+id/nav_update_info"
-            android:title="UPDATE INFORMATION" />
+            android:id="@+id/setting"
+            android:title="Settings" />
+
+
+
         <item
             android:id="@+id/nav_sign_out"
             android:title="SIGN OUT" />

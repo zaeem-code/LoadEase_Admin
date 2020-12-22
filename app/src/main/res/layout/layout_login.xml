@@ -13,27 +13,27 @@
             android:id="@+id/etEmail"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
-            android:textColor="@color/colorPrimary"
-            android:textColorHint="@color/colorPrimary"
+            android:textColor="@color/Black"
+            android:textColorHint="@color/Black"
             android:textSize="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:met_singleLineEllipsis="true"
-            app:met_baseColor="@color/colorPrimary"
+            app:met_baseColor="@color/Black"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="@color/colorPrimary"/>
+            app:met_primaryColor="@color/Black"/>
         <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/etPassword"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:textColor="@color/colorPrimary"
-            android:textColorHint="@color/colorPrimary"
+            android:textColor="@color/Black"
+            android:textColorHint="@color/Black"
             android:textSize="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:met_singleLineEllipsis="true"
-            app:met_baseColor="@color/colorPrimary"
+            app:met_baseColor="@color/Black"
             app:met_floatingLabel="highlight"
-            app:met_primaryColor="@color/colorPrimary"/>
+            app:met_primaryColor="@color/Black"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

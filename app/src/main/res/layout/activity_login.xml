@@ -105,7 +105,8 @@
             android:layout_marginTop="4dp"
             android:background="@drawable/btn_sign_in_background"
             android:text="@string/sign_up"
-            android:textColor="#fff" />
+            android:textColor="#000"
+            />
 
         <Button
             android:id="@+id/btnLogin"
@@ -115,6 +116,8 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
+            android:textColor="#000"
+
             android:background="@drawable/btn_log_in_backgroud"
             android:text="@string/login" />
     </LinearLayout>
