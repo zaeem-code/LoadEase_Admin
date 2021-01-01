@@ -35,6 +35,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.loadease.uberclone.adminpanels.Common.Common;
 import com.loadease.uberclone.adminpanels.Model.Token;
 import com.loadease.uberclone.adminpanels.R;
@@ -68,7 +70,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
   verifyGoogleAccount();
   add_PricingValue();
   updateFirebaseToken();
-
+        SuscribingTOfcm();
 
 
 
@@ -215,6 +217,27 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    private void SuscribingTOfcm(){
+
+
+
+
+        FirebaseMessaging.getInstance().subscribeToTopic("Admin");
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( this,  new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult)
+            {
+//            String newToken = instanceIdResult.getToken();
+//
+//            Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
+
+                FirebaseMessaging.getInstance().subscribeToTopic("Admin");
+            }
+        });
+
 
     }
 }

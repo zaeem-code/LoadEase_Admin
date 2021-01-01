@@ -1,5 +1,7 @@
 package com.loadease.uberclone.adminpanels.Service;
 
+import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,17 +25,20 @@ public class firebaseMessaging extends FirebaseMessagingService{
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
         super.onMessageReceived(remoteMessage);
-//        if(remoteMessage.getNotification().getTitle().equals("RequestDriver"))
-//        {
+
+        Log.v("FCMMM","in");
+        if(remoteMessage.getData().get("title").equals("New Driver"))
+        {
+            Log.v("FCMMM","ok");
 //            Pickup pickup=new Gson().fromJson(remoteMessage.getNotification().getBody(), Pickup.class);
-//            Intent intent=new Intent(getBaseContext(), CustommerCall.class);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            intent.putExtra("lat", pickup.getLastLocation().latitude);
-//            intent.putExtra("lng", pickup.getLastLocation().longitude);
-//            intent.putExtra("rider", pickup.getID());
-//            intent.putExtra("token", pickup.getToken().getToken());
-//            startActivity(intent);
-//        }
+            new notification_genrater(getApplicationContext(),remoteMessage.getData().get("title"), remoteMessage.getData().get("message"), remoteMessage.getData().get("Key"));
+        }else {
+
+            Log.v("FCMMM"," ni ok");
+        }
+
+
+
 
 
 

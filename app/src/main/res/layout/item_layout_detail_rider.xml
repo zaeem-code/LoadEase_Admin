@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    >
+
+
+    <TableRow>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="0dp"
+
+            android:id="@+id/pic_img"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_launcher_foreground"
+            app:civ_border_width="1dp"
+            android:paddingStart="3dp"
+            android:layout_weight="1"
+            app:civ_border_color="#FF000000"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:text="Ali"
+            android:textColor="@color/lightgray"
+            android:textStyle="bold"
+            android:textSize="10sp"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:maxLines="1"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_column="2"/>
+<RelativeLayout
+    android:layout_column="3"
+    android:layout_height="match_parent"
+    android:layout_weight="2"
+    android:layout_marginStart="5dp"
+    android:layout_width="0dp">
+
+
+        <ImageView
+            android:id="@+id/ride_licence"
+            android:layout_alignParentStart="true"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_baseline_image_24"
+            app:tint="@color/red" />
+    <TextView
+        android:id="@+id/ride_licencetv"
+        android:text="Licence Picture"
+        android:textSize="10sp"
+
+        android:textColor="@color/lightgray"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_toEndOf="@+id/ride_licence"
+        android:maxLines="2"
+        android:textStyle="bold"
+        android:gravity="start|center_vertical"
+        android:paddingStart="3dp"
+        android:layout_gravity="center" />
+
+
+</RelativeLayout>
+
+        <RelativeLayout
+            android:layout_column="4"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:layout_marginStart="5dp"
+            android:layout_width="0dp">
+
+
+            <ImageView
+                android:id="@+id/doc_car"
+                android:layout_alignParentStart="true"
+                android:layout_height="match_parent"
+                android:layout_width="25dp"
+                android:src="@drawable/img_truck"
+                />
+            <TextView
+                android:id="@+id/doc_cartv"
+                android:text="Vehical Picture"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:textColor="@color/lightgray"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_toEndOf="@+id/doc_car"
+                android:maxLines="2"
+                android:gravity="start|center_vertical"
+                android:paddingStart="3dp"
+                android:layout_gravity="center" />
+
+
+        </RelativeLayout>
+
+
+
+        <Switch
+            android:layout_column="5"
+            android:gravity="center"
+            android:layout_weight="3"
+            android:id="@+id/approved"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textOff="Pen"
+            android:textColor="@color/lightgray"
+            android:textSize="10sp"
+            android:checked="false"
+            android:text="Status"
+            android:thumbTint="@color/lightgray"
+            android:trackTint="@color/offwhite"
+            android:textOn="Apr"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    </TableRow>
+
+
+</TableLayout>
