@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -164,10 +165,16 @@ String id;
         dialog.setMessage("Are you sure you want to block : "+driver_name.getText().toString());
 
         dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                blockprocesss();
-               }
+                String txt = block_ed_tx.getText().toString().trim();
+                if (!TextUtils.isEmpty(txt)) {
+                    blockprocesss(txt);
+                } else {
+                    Toast.makeText(DriverDetailActivity.this, "Please Add a detail reasoning for blocking", Toast.LENGTH_LONG).show();
+                }
+            }
         });
         dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
@@ -176,12 +183,13 @@ String id;
         });
         dialog.show();
     }
-    private void blockprocesss(){
+    private void blockprocesss(String txt){
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("RidersProfile").child(id);
         myRef.child("blocked").setValue("true");
+        myRef.child("blockedComments").setValue(txt);
         Toast.makeText(this, driver_name.getText().toString()+" is blocked Successfully", Toast.LENGTH_SHORT).show();
         finish();
 
