@@ -521,7 +521,7 @@
                 android:layout_width="match_parent"
                 android:layout_toStartOf="@+id/confirm_btn"
                 android:layout_height="100dp"
-                android:hint="Comment"
+                android:hint="Add or up-date the reason of blocking"
                 android:maxLines="3"
                 android:layout_alignParentBottom="true"
                 android:layout_below="@id/block_driver"/>

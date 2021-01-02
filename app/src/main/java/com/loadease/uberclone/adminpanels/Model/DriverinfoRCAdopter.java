@@ -129,7 +129,7 @@ holder.buttonApproved.setChecked(false);
                                     .putExtra("LICURL",item.getRider_licence_pic())
                                     .putExtra("VEHURL",item.getRider_vehical_pic())
                                     .putExtra("DPURL",item.getRider_pic_Url())
-                                    .putExtra("rating",item.getRates())
+                                    .putExtra("getAverageRating",item.getAverageRating())
                             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
                     );

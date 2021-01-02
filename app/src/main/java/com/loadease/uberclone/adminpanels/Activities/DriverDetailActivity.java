@@ -69,7 +69,7 @@ String id;
         } else {
 
             driver_name.setText(getIntent().getStringExtra("Name").toString());
-//        rating.setText( getIntent().getStringExtra("rating").toString());
+        rating.setText("Rating "+ getIntent().getStringExtra("getAverageRating").toString());
             pd_dob.setText(getIntent().getStringExtra("DOB").toString());
             gender_txt.setText(getIntent().getStringExtra("gen").toString());
             pd_email.setText(getIntent().getStringExtra("Email").toString());
@@ -247,7 +247,7 @@ String id;
 
                 DriverUser item=        snapshot.getValue(DriverUser.class);
 
-//                rating.setText( item.ra).toString());
+                rating.setText( "Rating "+item.getAverageRating().toString());
                 driver_name.setText( item.getName());
                 pd_dob.setText( item.getDOB());
                 gender_txt.setText( item.getGender());

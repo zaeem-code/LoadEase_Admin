@@ -64,6 +64,15 @@ protected void onCreate(Bundle savedInstanceState) {
 //        return root;
 
 }
+
+    @Override
+    protected void onResume() {
+    if (driverinfoRCAdopter!=null){
+        driverinfoRCAdopter.notifyDataSetChanged();
+    }
+        super.onResume();
+    }
+
     private void setuprc(){
         blockedTV.setText(String.valueOf(blocked));
         ApprovedTv.setText(String.valueOf(approved));
