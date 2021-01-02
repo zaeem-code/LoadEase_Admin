@@ -87,11 +87,13 @@ String id;
             Glide.with(getApplicationContext()).load(getIntent().getStringExtra("DPURL").toString()).into(circ_img);
         }
 
-        if (blocked.equals("true")) {
-            buttonblock.setChecked(true);
-        } else {
-
+        if (blocked.equals("false")) {
             buttonblock.setChecked(false);
+            buttonblock.setVisibility(View.GONE);
+            Toast.makeText(this, blocked, Toast.LENGTH_SHORT).show();
+        } else {
+            buttonblock.setChecked(true);
+
         }
 
 
@@ -99,8 +101,7 @@ String id;
             buttonApproved.setChecked(true);
         } else {
 
-            buttonblock.setChecked(false);
-            buttonblock.setVisibility(View.GONE);
+            buttonApproved.setChecked(false);
         }
 
 

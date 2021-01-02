@@ -90,17 +90,10 @@ myRef.addListenerForSingleValueEvent(new ValueEventListener() {
         for (DataSnapshot dsp: snapshot.getChildren()){
             Log.v("Admin","------> "+dsp);
 
-if (dsp.child("blocked").getValue().toString().equals("true")){
-    blocked++;
-}else if (dsp.child("profile_status").getValue().toString().equals("verified")){
 approved++;
     driverinfo.add(dsp.getValue(DriverUser.class));
-}else if (dsp.child("profile_status").getValue().toString().equals("Nverified")) {
-
-pending++;
-    driverinfo.add(dsp.getValue(DriverUser.class));
 }
-        }
+
 
             setuprc();
 

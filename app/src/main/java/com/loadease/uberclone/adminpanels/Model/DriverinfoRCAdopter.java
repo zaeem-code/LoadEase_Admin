@@ -63,6 +63,10 @@ holder.buttonApproved.setChecked(false);
                 holder.stts.setVisibility(View.VISIBLE);
 
 
+            }else {
+                holder.buttonApproved.setVisibility(View.VISIBLE);
+                holder.stts.setVisibility(View.GONE);
+
             }
 
             Picasso.get().load(item.getRider_pic_Url()).into(holder.DriverPic);
