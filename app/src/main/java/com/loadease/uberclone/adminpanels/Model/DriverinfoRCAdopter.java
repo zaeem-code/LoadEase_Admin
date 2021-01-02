@@ -49,12 +49,19 @@ public class DriverinfoRCAdopter extends  RecyclerView.Adapter<DriverinfoRCAdopt
 
         item=cartitemModelList.get(position);
         if (item!=null){
+
             if (item.getProfile_status().equals("Nverified")) {
 holder.buttonApproved.setChecked(false);
 
             }   else if (item.getProfile_status().equals("verified")){
 
                 holder.buttonApproved.setChecked(true);
+
+            }
+            if (item.getBlocked().equals("true")){
+                holder.buttonApproved.setVisibility(View.GONE);
+                holder.stts.setVisibility(View.VISIBLE);
+
 
             }
 
@@ -71,7 +78,7 @@ holder.buttonApproved.setChecked(false);
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
         ImageView DriverPic;
-        TextView name, RideLineces,Documentspic;
+        TextView name, RideLineces,Documentspic,stts;
         Switch buttonApproved;
 
         ViewHolder(View itemView) {
@@ -80,6 +87,9 @@ holder.buttonApproved.setChecked(false);
 
 
             name = itemView.findViewById(R.id.name);
+
+            stts = itemView.findViewById(R.id.stts);
+
             RideLineces = itemView.findViewById(R.id.ride_licencetv);
             RideLineces.setOnClickListener(this);
             Documentspic = itemView.findViewById(R.id.doc_cartv);
@@ -141,6 +151,7 @@ private void setdriverVerificaion(String id, boolean b){
     DatabaseReference myRef = database.getReference("RidersProfile").child(id);
     if (b){
         myRef.child("profile_status").setValue("verified");
+
     }else {
 
         myRef.child("profile_status").setValue("Nverified");

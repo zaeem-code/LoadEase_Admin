@@ -99,7 +99,8 @@ String id;
             buttonApproved.setChecked(true);
         } else {
 
-            buttonApproved.setChecked(false);
+            buttonblock.setChecked(false);
+            buttonblock.setVisibility(View.GONE);
         }
 
 
@@ -254,9 +255,9 @@ String id;
                 car_type.setText(item.getCarType());
                 year_of_prod.setText(item.getYear_of_prodution());
                 num_plate.setText( item.getCarnum());
-                status_txt .setText( item.getProfile_status());
-                Appove=getIntent().getStringExtra("Status").toString();
-                blocked = getIntent().getStringExtra("Blocked").toString();
+                Appove=item.getProfile_status();
+                status_txt .setText( Appove);
+                blocked =item.getBlocked();
                 blstatusblock_txt.setText(blocked);
                 Glide.with(getApplicationContext()).load(item.getRider_cnic_pic_url()).into(cnic_pic);
                 Glide.with(getApplicationContext()).load( item.getRider_licence_pic()).into(Licence_pic);
@@ -267,10 +268,13 @@ String id;
 
                 if (blocked.equals("true")) {
                     buttonblock.setChecked(true);
+
+                    buttonblock.setVisibility(View.VISIBLE);
                 } else
                     {
 
                     buttonblock.setChecked(false);
+                        buttonblock.setVisibility(View.GONE);
                 }
 
 
