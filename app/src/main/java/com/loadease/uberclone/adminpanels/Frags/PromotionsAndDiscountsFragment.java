@@ -1,6 +1,7 @@
 package com.loadease.uberclone.adminpanels.Frags;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.loadease.uberclone.adminpanels.Activities.Home;
+import com.loadease.uberclone.adminpanels.Common.Common;
+import com.loadease.uberclone.adminpanels.Messages.FCM_send_msg;
 import com.loadease.uberclone.adminpanels.Model.Discountmodal;
 import com.loadease.uberclone.adminpanels.Model.DiscountnfoRCAdopter;
 import com.loadease.uberclone.adminpanels.R;
@@ -63,26 +66,25 @@ protected void onCreate(Bundle savedInstanceState) {
     percentage=findViewById(R.id.etPercentage);
     code=findViewById(R.id.etCode);
     etMsg=findViewById(R.id.etMsg);
-    findViewById(R.id.add).setOnClickListener(new View.OnClickListener() {
+    findViewById(R.id.sendtoall).setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            clicked();
+            clickedsendtoall();
+        }
+    });
+    findViewById(R.id.senttospecfic).setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            clickedSendtospecific();
         }
     });
 
 
-    getuserDAta();
 //        return root;
 new Home().add_PricingValue();
 }
 
-    @Override
-    protected void onResume() {
-    if (discountnfoRCAdopter !=null){
-        discountnfoRCAdopter.notifyDataSetChanged();
-    }
-        super.onResume();
-    }
+
 
     private void setuprc(){
 
@@ -98,7 +100,7 @@ new Home().add_PricingValue();
     }
 
 
-private void clicked(){
+private void clickedsendtoall(){
     nametv=name.getText().toString().trim();
     percentagetv=percentage.getText().toString().trim();
     validtilltv=validtill.getText().toString().trim();
@@ -129,6 +131,8 @@ private void clicked(){
                                                                    validtill.setText("");
                                                                    code.setText("");
                                                                    etMsg.setText("");
+
+                                                                   new FCM_send_msg(getApplicationContext(),item.getDisname(),item.getDiscountdetaials());
 getuserDAta();
 
                                                                }
@@ -137,6 +141,29 @@ getuserDAta();
         Toast.makeText(this, "All the Fields must ne empty", Toast.LENGTH_SHORT).show();
     }
 }
+
+    private void clickedSendtospecific(){
+        nametv=name.getText().toString().trim();
+        percentagetv=percentage.getText().toString().trim();
+        validtilltv=validtill.getText().toString().trim();
+
+        codetv=code.getText().toString().trim();
+        etMsgtv=etMsg.getText().toString().trim();
+
+        if (!TextUtils.isEmpty(nametv) &&!TextUtils.isEmpty(percentagetv) &&!TextUtils.isEmpty(validtilltv) && !TextUtils.isEmpty(codetv)&& !TextUtils.isEmpty(etMsgtv)){
+            dialog.show();
+
+            item.setDiscode(codetv);
+            item.setDiscdercentage(percentagetv);
+            item.setDiscvalidationdate(validtilltv);
+            item.setDisname(nametv);
+            item.setDiscountdetaials(etMsgtv);
+            Common.itemforspecificusers=item;
+            startActivity(new Intent(this,SendDataTospecificUsers.class));
+        }else {
+            Toast.makeText(this, "All the Fields must ne empty", Toast.LENGTH_SHORT).show();
+        }
+    }
     private void getuserDAta(){
         dialog.show();
         try {
@@ -157,10 +184,11 @@ myRef.addListenerForSingleValueEvent(new ValueEventListener() {
 
     @Override
     public void onCancelled(@NonNull DatabaseError error) {
-getuserDAta();
+        getuserDAta();
+
+
+
     }
-
-
 });
         }catch (Exception e){
             if (dialog.isShowing()){
@@ -173,6 +201,7 @@ getuserDAta();
     @Override
     public void onClick(View view) {
         if (view.getId()==R.id.openrec){
+            getuserDAta();
             findViewById(R.id.layoutadd).setVisibility(View.GONE);
 
             findViewById(R.id.layoutrec).setVisibility(View.VISIBLE);

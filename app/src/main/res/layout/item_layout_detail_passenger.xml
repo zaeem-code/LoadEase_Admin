@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:layout_marginBottom="10dp"
+    >
+
+
+    <TableRow
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="0dp"
+android:layout_marginVertical="3dp"
+            android:id="@+id/pic_img"
+            android:layout_height="50dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_launcher_foreground"
+            app:civ_border_width="1dp"
+            android:paddingStart="3dp"
+            android:layout_weight="1"
+            app:civ_border_color="#FF000000"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:text="Ali"
+            android:textColor="@color/lightgray"
+            android:textStyle="bold"
+            android:textSize="12sp"
+
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:maxLines="1"
+            android:paddingStart="5dp"
+            android:gravity="center|start"
+            android:layout_gravity="center"
+            android:layout_column="3"/>
+
+
+      <TextView
+            android:layout_column="5"
+            android:gravity="center"
+            android:layout_weight="1.5"
+            android:id="@+id/send"
+            android:visibility="visible"
+            android:textStyle="bold"
+            android:layout_marginVertical="10dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:text="Send"
+          android:background="@drawable/background_card_view"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+    </TableRow>
+
+
+</TableLayout>

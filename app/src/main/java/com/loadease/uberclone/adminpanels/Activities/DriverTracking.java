@@ -116,7 +116,7 @@ public class DriverTracking extends AppCompatActivity implements
         historyRider = database.getReference(Common.history_rider).child(riderID);
         riderInformation=database.getReference(Common.user_rider_tbl);
         tokens=database.getReference(Common.token_tbl);
-        drivers= FirebaseDatabase.getInstance().getReference(Common.driver_tbl).child(Common.currentUser.getCarType());
+//        drivers= FirebaseDatabase.getInstance().getReference(Common.driver_tbl).child(Common.currentUser.getCarType());
         geoFire=new GeoFire(drivers);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);

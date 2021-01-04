@@ -27,6 +27,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class DriverinfoRCAdopter extends  RecyclerView.Adapter<DriverinfoRCAdopter.ViewHolder> {
 int i=0;
     private Context context;
@@ -91,7 +93,7 @@ holder.buttonApproved.setChecked(false);
     }
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
-        ImageView DriverPic;
+        CircleImageView DriverPic;
         TextView name, RideLineces,Documentspic,stts;
         Switch buttonApproved;
 

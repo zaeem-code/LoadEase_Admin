@@ -18,6 +18,7 @@ import androidx.core.app.NotificationCompat;
 import com.google.android.gms.maps.model.LatLng;
 import com.loadease.uberclone.adminpanels.Interfaces.IFCMService;
 import com.loadease.uberclone.adminpanels.Interfaces.googleAPIInterface;
+import com.loadease.uberclone.adminpanels.Model.Discountmodal;
 import com.loadease.uberclone.adminpanels.Model.User;
 import com.loadease.uberclone.adminpanels.R;
 import com.loadease.uberclone.adminpanels.Retrofit.FCMClient;
@@ -40,6 +41,7 @@ public class Common {
     public static final int PICK_IMAGE_REQUEST = 9999;
     static String Notification_Chanel_Id="notification_alert";
 
+    public static Discountmodal itemforspecificusers;
     public static Double currentLat;
     public static Double currentLng;
 
