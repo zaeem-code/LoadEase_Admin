@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    app:cardElevation="5dp"
+android:layout_marginVertical="5dp"
+    app:cardCornerRadius="15sp"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginBottom="10dp"
+    >
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+android:id="@+id/itembg"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_toStartOf="@+id/percentage"
+        android:maxLines="1"
+        android:textStyle="bold"
+        android:id="@+id/name"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp"
+        android:textColor="@color/lightgray"
+        android:text="LoadEase 50 50"/>
+
+    <TextView
+        android:id="@+id/percentage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/dis"
+        android:gravity="center_vertical|start"
+        android:maxLines="1"
+        android:paddingStart="8dp"
+        android:text="50%"
+        android:textColor="@color/black"
+
+        android:textSize="12sp"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/name"
+        android:id="@+id/msg"
+        android:layout_width="match_parent"
+        android:layout_toStartOf="@+id/percentage"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp"
+        android:maxLines="2"
+        android:textColor="@color/lightgray"
+        android:text="Now enjoy an whooping 50% off on all the rides\nso wat are you waiting for? go load ease"/>
+
+
+    <TextView
+        android:layout_marginBottom="3dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/validation"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:gravity="center_vertical|end"
+        android:paddingEnd="20dp"
+        android:maxLines="1"
+
+        android:textColor="@android:color/holo_red_dark"
+        android:text="Valid till: 1-2-2021"/>
+    <TextView
+        android:layout_toEndOf="@+id/delete"
+
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/validation"
+        android:layout_marginBottom="3dp"
+        android:id="@+id/Code"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:gravity="center_vertical"
+        android:paddingStart="10dp"
+        android:maxLines="1"
+
+        android:textColor="@android:color/holo_red_dark"
+        android:text="Code: C42EaseonPocketxyz"/>
+
+
+    <ImageView
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/backbg"
+        android:src="@drawable/ic_baseline_delete_forever_24"
+        android:tint="@android:color/white"
+         android:id="@+id/delete"
+        tools:ignore="UseAppTint"
+        android:focusable="true" />
+
+</RelativeLayout>
+
+</androidx.cardview.widget.CardView>

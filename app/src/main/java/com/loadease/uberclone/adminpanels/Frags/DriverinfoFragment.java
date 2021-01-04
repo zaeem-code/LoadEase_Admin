@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.loadease.uberclone.adminpanels.Activities.Home;
 import com.loadease.uberclone.adminpanels.Model.DriverUser;
 import com.loadease.uberclone.adminpanels.Model.DriverinfoRCAdopter;
 import com.loadease.uberclone.adminpanels.R;
@@ -41,7 +42,7 @@ RecyclerView driver_rcy;
 
 
 
-    DriverinfoRCAdopter driverinfoRCAdopter;
+        DriverinfoRCAdopter driverinfoRCAdopter;
     ArrayList<DriverUser> driverinfo=new ArrayList<>();
 
 //    public View onCreateView(@NonNull LayoutInflater inflater,
@@ -62,7 +63,7 @@ protected void onCreate(Bundle savedInstanceState) {
 
     getuserDAta();
 //        return root;
-
+new Home().add_PricingValue();
 }
 
     @Override
@@ -96,6 +97,7 @@ protected void onCreate(Bundle savedInstanceState) {
 myRef.addListenerForSingleValueEvent(new ValueEventListener() {
     @Override
     public void onDataChange(@NonNull DataSnapshot snapshot) {
+        driverinfo.clear();
         for (DataSnapshot dsp: snapshot.getChildren()){
             Log.v("Admin","------> "+dsp);
 

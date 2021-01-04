@@ -3,6 +3,7 @@ package com.loadease.uberclone.adminpanels.Model;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.loadease.uberclone.adminpanels.Activities.DriverDetailActivity;
+import com.loadease.uberclone.adminpanels.Messages.FCM_send_msg;
 import com.loadease.uberclone.adminpanels.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class DriverinfoRCAdopter extends  RecyclerView.Adapter<DriverinfoRCAdopter.ViewHolder> {
-
+int i=0;
     private Context context;
 
     private ArrayList<DriverUser> cartitemModelList;
@@ -71,6 +73,14 @@ holder.buttonApproved.setChecked(false);
 
             Picasso.get().load(item.getRider_pic_Url()).into(holder.DriverPic);
             holder.name.setText(item.getName());
+
+       if (position==cartitemModelList.size()-1) {
+           i++;
+           Log.v("noti", "ye i ha " + i);
+       }
+
+           Log.v("noti","ye size ha "+cartitemModelList.size());
+
         }
 
     }
@@ -140,25 +150,27 @@ holder.buttonApproved.setChecked(false);
 
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
             item=cartitemModelList.get(getAdapterPosition());
 
             Toast.makeText(context, "switch :"+item.getName(), Toast.LENGTH_SHORT).show();
-                setdriverVerificaion(item.getId(),b);
+                setdriverVerificaion(item.getId(),b,item);
 
 
         }
     }
 
-private void setdriverVerificaion(String id, boolean b){
+private void setdriverVerificaion(String id, boolean b, DriverUser item){
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference("RidersProfile").child(id);
-    if (b){
-        myRef.child("profile_status").setValue("verified");
+    if (i>0) {
+        if (b) {
+            new FCM_send_msg(context, item.getId(), "Verification process was successful, You can Proceed now");
+            myRef.child("profile_status").setValue("verified");
+        } else {
+            myRef.child("profile_status").setValue("Nverified");
+            new FCM_send_msg(context, item.getId(), "You have been Restricted by LoadEase, Contact LoadEase office for more details");
 
-    }else {
-
-        myRef.child("profile_status").setValue("Nverified");
+        }
     }
 }
 }

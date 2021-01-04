@@ -32,9 +32,6 @@ public class firebaseMessaging extends FirebaseMessagingService{
             Log.v("FCMMM","ok");
 //            Pickup pickup=new Gson().fromJson(remoteMessage.getNotification().getBody(), Pickup.class);
             new notification_genrater(getApplicationContext(),remoteMessage.getData().get("title"), remoteMessage.getData().get("message"), remoteMessage.getData().get("Key"));
-        }else {
-
-            Log.v("FCMMM"," ni ok");
         }
 
 

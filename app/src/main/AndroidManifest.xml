@@ -23,6 +23,7 @@
         <activity android:name=".Activities.Home"></activity>
         <activity android:name=".chatIntegration.Activity.MainChatActivity" />
         <activity android:name=".chatIntegration.Activity.MessageActivity" />
+        <activity android:name=".Frags.DriverinfoFragment"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -44,7 +45,7 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".Frags.DriverinfoFragment">
+        <activity android:name=".Frags.PromotionsAndDiscountsFragment">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

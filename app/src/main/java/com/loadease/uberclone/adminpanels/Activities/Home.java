@@ -108,12 +108,10 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         hashMap.put("timeRate","2");
         hashMap.put("distanceRate","2");
 
-        db.updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener() {
-            @Override
-            public void onSuccess(Object o) {
-
-            }
-        });
+        db.child("Truck").updateChildren(hashMap);
+        db.child("Pickup").updateChildren(hashMap);
+        db.child("Mazda").updateChildren(hashMap);
+        db.child("Shahzore").updateChildren(hashMap);
 
 
     }

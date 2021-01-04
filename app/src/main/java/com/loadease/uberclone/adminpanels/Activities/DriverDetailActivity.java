@@ -28,6 +28,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.loadease.uberclone.adminpanels.Messages.FCM_send_msg;
 import com.loadease.uberclone.adminpanels.Model.DriverUser;
 import com.loadease.uberclone.adminpanels.R;
 
@@ -42,7 +43,7 @@ String blocked="",Appove="";
     EditText block_ed_tx;
     ImageView cnic_pic, vechicle_pic, Licence_pic;
     CircleImageView circ_img;
-
+int chk1=0,chk2=0;
 String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,7 +193,10 @@ String id;
         DatabaseReference myRef = database.getReference("RidersProfile").child(id);
         myRef.child("blocked").setValue("true");
         myRef.child("blockedComments").setValue(txt);
+
         Toast.makeText(this, driver_name.getText().toString()+" is blocked Successfully", Toast.LENGTH_SHORT).show();
+        new FCM_send_msg(getApplicationContext(),id,"Note: You have been Blocked by LoadEase,  Signin For more Details");
+
         finish();
 
     }
@@ -316,26 +320,35 @@ String id;
     }
 
 
-
     private void setdriverVerificaion(String id, boolean b){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("RidersProfile").child(id);
         if (b){
             myRef.child("profile_status").setValue("verified");
-        }else {
+            if (chk1>0) {
+                new FCM_send_msg(getApplicationContext(), id, "Verification process was successful, You can Proceed now");
+            }
+            chk1++;
+      }else {
 
             myRef.child("profile_status").setValue("Nverified");
+            if (chk1 > 0) {
+                new FCM_send_msg(getApplicationContext(), id, "You have been Restricted by LoadEase, Contact LoadEase office for more details");
+            }
+
+            chk1++;
         }
     }
-
     private void setdriverBlock(String id, boolean b){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("RidersProfile").child(id);
-        if (b){
-            myRef.child("blocked").setValue("true");
-        }else {
 
             myRef.child("blocked").setValue("false");
+            if (chk2>0) {
+                new FCM_send_msg(getApplicationContext(), id, "Congratulations: You have been UnBlocked by LoadEase");
+
+
         }
+        chk2++;
     }
 }

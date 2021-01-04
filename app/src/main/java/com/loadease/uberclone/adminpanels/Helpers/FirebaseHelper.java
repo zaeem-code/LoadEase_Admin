@@ -29,7 +29,6 @@ import com.loadease.uberclone.adminpanels.Activities.Home;
 import com.loadease.uberclone.adminpanels.Common.Common;
 import com.loadease.uberclone.adminpanels.Model.User;
 import com.loadease.uberclone.adminpanels.R;
-import com.loadease.uberclone.adminpanels.fragment.FragmentDriver;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.json.JSONObject;
@@ -59,7 +58,7 @@ public class FirebaseHelper {
 
         LayoutInflater inflater=LayoutInflater.from(activity);
         View login_layout=inflater.inflate(R.layout.layout_login, null);
-        final MaterialEditText etEmail=login_layout.findViewById(R.id.etEmail);
+        final MaterialEditText etEmail=login_layout.findViewById(R.id.etName);
         final MaterialEditText etPassword=login_layout.findViewById(R.id.etPassword);
 
         alertDialog.setView(login_layout);
@@ -114,7 +113,7 @@ public class FirebaseHelper {
 
         LayoutInflater inflater=LayoutInflater.from(activity);
         View registrer_layout=inflater.inflate(R.layout.layout_register, null);
-        final MaterialEditText etEmail=registrer_layout.findViewById(R.id.etEmail);
+        final MaterialEditText etEmail=registrer_layout.findViewById(R.id.etName);
         final MaterialEditText etPassword=registrer_layout.findViewById(R.id.etPassword);
         final MaterialEditText etName=registrer_layout.findViewById(R.id.etName);
         final MaterialEditText etPhone=registrer_layout.findViewById(R.id.etPhone);
