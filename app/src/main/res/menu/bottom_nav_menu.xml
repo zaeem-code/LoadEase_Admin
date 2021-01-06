@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/DashBoard"
+        android:title="DashBoard"
+        android:icon="@drawable/dashboard"/>
+    <item
+        android:id="@+id/Vehical"
+        android:title="Vehical"
+        android:icon="@drawable/vehical"/>
+    <item
+        android:id="@+id/Drivers"
+        android:title="Drivers"
+        android:icon="@drawable/driver"/>
+    <item
+        android:id="@+id/Messages"
+        android:title="Messages"
+        android:icon="@drawable/msg"/>
+    <item
+        android:id="@+id/Pricing"
+        android:title="Pricing"
+        android:icon="@drawable/pricing"/>
+</menu>

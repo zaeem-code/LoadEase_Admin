@@ -30,9 +30,7 @@ import com.loadease.uberclone.adminpanels.Model.DriverinfoRCAdopter;
 import com.loadease.uberclone.adminpanels.R;
 
 import java.util.ArrayList;
-//
-//public class DriverinfoFragment extends Fragment {
-public class DriverinfoFragment extends AppCompatActivity {
+public class DriverinfoFragment extends Fragment {
 RecyclerView driver_rcy;
     ProgressDialog dialog;
     int blocked=0;
@@ -44,34 +42,32 @@ RecyclerView driver_rcy;
 
         DriverinfoRCAdopter driverinfoRCAdopter;
     ArrayList<DriverUser> driverinfo=new ArrayList<>();
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-//    public View onCreateView(@NonNull LayoutInflater inflater,
-//                             ViewGroup container, Bundle savedInstanceState) {
-//        View root = inflater.inflate(R.layout.drivers_details_activity, container, false);
-//        driver_rcy=root.findViewById(R.id.driver_rcy);
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+    }
+    public DriverinfoFragment(){
 
-    setContentView(R.layout.drivers_details_activity);
+    }
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.drivers_details_activity, container, false);
+
 
     SuscribingTOfcm();
-    driver_rcy=findViewById(R.id.driver_rcy);
-    blockedTV=findViewById(R.id.blocked);
-    ApprovedTv=findViewById(R.id.approved);
-    PendingTV=findViewById(R.id.pending);
+    driver_rcy=root.findViewById(R.id.driver_rcy);
+    blockedTV=root.findViewById(R.id.blocked);
+    ApprovedTv=root.findViewById(R.id.approved);
+    PendingTV=root.findViewById(R.id.pending);
 
-    getuserDAta();
-//        return root;
-new Home().add_PricingValue();
+        return root;
 }
 
     @Override
-    protected void onResume() {
-    if (driverinfoRCAdopter!=null){
-        driverinfoRCAdopter.notifyDataSetChanged();
-    }
+    public void onResume() {
         super.onResume();
+        getuserDAta();
     }
 
     private void setuprc(){
@@ -79,8 +75,8 @@ new Home().add_PricingValue();
         ApprovedTv.setText(String.valueOf(approved));
         PendingTV.setText(String.valueOf(pending));
 
-        driver_rcy.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        driverinfoRCAdopter=new DriverinfoRCAdopter(driverinfo,getApplicationContext());
+        driver_rcy.setLayoutManager(new LinearLayoutManager(getActivity()));
+        driverinfoRCAdopter=new DriverinfoRCAdopter(driverinfo,getActivity());
 
         driver_rcy.setAdapter(driverinfoRCAdopter);
         driverinfoRCAdopter.notifyDataSetChanged();
@@ -89,9 +85,14 @@ new Home().add_PricingValue();
         }
     }
     private void getuserDAta(){
-        dialog = new ProgressDialog(this);
+        dialog = new ProgressDialog(getActivity());
         dialog.setMessage("Loading...");
         dialog.show();
+
+         blocked=0;
+         approved=0;
+         pending=0;
+        driverinfo.clear();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("RidersProfile");
 myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -126,13 +127,13 @@ getuserDAta();
 
 
         FirebaseMessaging.getInstance().subscribeToTopic("Admin");
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( this,  new OnSuccessListener<InstanceIdResult>() {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( getActivity(),  new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult)
             {
 //            String newToken = instanceIdResult.getToken();
 
-            Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(),"Success",Toast.LENGTH_LONG).show();
 
                 FirebaseMessaging.getInstance().subscribeToTopic("Admin");
             }

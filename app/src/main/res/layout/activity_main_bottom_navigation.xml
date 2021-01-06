@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/lightgray"
+    android:layout_height="match_parent"
+    tools:context=".MainActivityBottomNavigation">
+
+
+    <RelativeLayout
+        android:id="@+id/lyt1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/lightgray"
+
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:backgroundTint="@color/white"
+            android:gravity="center"
+
+            android:text="LoadEase"
+            android:textColor="@color/lightgray" />
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="70dp"
+            android:padding="5dp"
+            android:layout_marginRight="10sp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_person_24"
+            app:civ_border_width="2dp"
+            android:layout_alignParentRight="true"
+            app:civ_border_color="@color/white"/>
+
+    </RelativeLayout>
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_below="@+id/lyt1"
+          android:id="@+id/fragment_container_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomNavigationView">
+    </androidx.fragment.app.FragmentContainerView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bottomsheetbg"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_nav_menu"/>
+
+
+</RelativeLayout>
