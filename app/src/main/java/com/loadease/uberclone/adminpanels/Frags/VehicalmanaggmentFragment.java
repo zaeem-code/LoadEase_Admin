@@ -134,6 +134,7 @@ dialog.show();
                 if (snapshot.exists()){
                     online=Integer.parseInt(String.valueOf(snapshot.getChildrenCount()));
                 }
+                //
                 setdataup();
             }
             @Override
