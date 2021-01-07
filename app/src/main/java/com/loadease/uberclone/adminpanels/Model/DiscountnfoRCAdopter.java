@@ -48,7 +48,7 @@ holder.name.setText(item.getDisname());
             holder.msg.setText(item.getDiscountdetaials());
             holder.validation.setText("Valid till: "+item.getDiscvalidationdate());
             holder.Code.setText(item.getDiscode());
-            holder.percentage.setText(item.getDiscdercentage()+"%");
+            holder.percentage.setText(item.getDiscdercentage()+" rs");
         }
 
 
