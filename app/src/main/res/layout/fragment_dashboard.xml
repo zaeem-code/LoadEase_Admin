@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,6 +9,12 @@
     android:weightSum="9"
     android:background="@color/lightgray"
     android:layout_height="match_parent">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+  >
 
 
 
@@ -435,6 +441,53 @@ android:paddingStart="5dp"
             </LinearLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:background="@drawable/backbg2"
+        >
 
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text= "Add or Remove Discounts/Promotions"
+                android:textColor="@color/lightgray"
+                android:layout_margin="8dp"
+                android:textSize="17sp"
+                android:textStyle="bold"/>
+
+
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/offwhite"
+            android:layout_marginHorizontal="10dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="5dp"
+            android:text= "Go to Dis./promo Dashboard"
+
+            android:id="@+id/addpromo"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/salascaes"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:background="@color/red"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+
+
+    </LinearLayout>
 
 </LinearLayout>
+
+</ScrollView>

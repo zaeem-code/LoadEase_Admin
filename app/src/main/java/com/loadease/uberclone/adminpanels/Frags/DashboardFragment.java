@@ -1,6 +1,8 @@
 package com.loadease.uberclone.adminpanels.Frags;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +35,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -34,6 +43,7 @@ import java.util.Locale;
 public class DashboardFragment extends Fragment {
     ProgressDialog dialog;
 
+    BarChart barChart;
     int TotalRides,Continue,Completed,TargetRides;
 TextView Totalrideperx,totalridestv,inprocesstv,complletetv,cancelltv,totalsale,totaldriveroutof,todate;
     com.budiyev.android.circularprogressbar.CircularProgressBar  totalpercentageprg;
@@ -53,6 +63,24 @@ TextView Totalrideperx,totalridestv,inprocesstv,complletetv,cancelltv,totalsale,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root=inflater.inflate(R.layout.fragment_dashboard, container, false);
+
+
+
+
+
+
+          barChart = root.findViewById(R.id.barChart);
+
+
+
+
+root.findViewById(R.id.addpromo).setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        startActivity(new Intent(getActivity(),PromotionsAndDiscountsFragment.class));
+    }
+});
+
         dialog = new ProgressDialog(getActivity());
         dialog.setMessage("Loading...");
         Totalrideperx =root.findViewById(R.id.Totalrideper);
@@ -172,7 +200,10 @@ int online,total;
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                online= Integer.parseInt(snapshot.getValue().toString().trim());
+           if (snapshot.exists()){
+               online=Integer.parseInt(String.valueOf(snapshot.getChildrenCount()));
+           }
+
                 totaldriveroutof.setText(online+"/"+total);
                 getTotalprice();
                 if (dialog.isShowing()) {
@@ -218,7 +249,23 @@ int online,total;
                         }
                     }
                 totalsale.setText(String.valueOf(Math.round(totalprice)));
+                    ArrayList<BarEntry> visitor= new ArrayList<>();
+                    visitor.add(new BarEntry(1,Math.round(totalprice)));
+                    visitor.add(new BarEntry(2,TotalRides));
+                    visitor.add(new BarEntry(3,total));
 
+
+                    BarDataSet barDataSet = new BarDataSet(visitor,"Revenue, Orders, Drivers") ;
+
+                    barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                    barDataSet.setValueTextColor(R.color.lightgray);
+                    barDataSet.setValueTextSize(16f);
+
+                    BarData barData = new BarData(barDataSet);
+                    barChart.setFitBars(true);
+                    barChart.setData(barData);
+                    barChart.getDescription().setText("Statistics");
+                    barChart.animateY(2000) ;
 
                     if (dialog.isShowing()) {
                         dialog.dismiss();

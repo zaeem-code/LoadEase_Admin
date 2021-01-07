@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -53,6 +54,8 @@ protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_discount);
+    getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    getSupportActionBar().hide();
     item=new Discountmodal();
              database = FirebaseDatabase.getInstance();
          myRef = database.getReference("PromotionalDetails");
@@ -116,7 +119,7 @@ private void clickedsendtoall(){
         item.setDiscvalidationdate(validtilltv);
         item.setDisname(nametv);
         item.setDiscountdetaials(etMsgtv);
-        myRef.child(nametv).setValue(item).addOnCompleteListener(new
+        myRef.child(codetv).setValue(item).addOnCompleteListener(new
                                                            OnCompleteListener<Void>() {
                                                                @Override
                                                                public void onComplete(@NonNull Task<Void> task) {
