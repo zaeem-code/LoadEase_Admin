@@ -200,6 +200,7 @@ int online,total;
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //
            if (snapshot.exists()){
                online=Integer.parseInt(String.valueOf(snapshot.getChildrenCount()));
            }
