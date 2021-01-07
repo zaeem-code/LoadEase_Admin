@@ -356,12 +356,11 @@
                     android:layout_height="0dp"
                     android:layout_weight="0.7"
                     android:maxLines="1"
-                    android:hint="e.g 01-02-2021 follow the format dd/MM/yyyy"
+                    android:hint="e.g 01/02/2021 , dd/MM/yyyy"
 
                     android:id="@+id/etValiddate"
                     android:paddingHorizontal="8dp"
                     android:layout_marginHorizontal="10dp"
-                    android:inputType="date"
                     android:textColor="@color/lightgray"
                     android:autoSizeMaxTextSize="15sp"
                     android:autoSizeMinTextSize="10sp"

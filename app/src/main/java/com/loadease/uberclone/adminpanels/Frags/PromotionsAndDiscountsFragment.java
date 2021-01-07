@@ -29,6 +29,8 @@ import com.loadease.uberclone.adminpanels.Model.Discountmodal;
 import com.loadease.uberclone.adminpanels.Model.DiscountnfoRCAdopter;
 import com.loadease.uberclone.adminpanels.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 //
@@ -103,19 +105,39 @@ new Home().add_PricingValue();
     }
 
 
+
+    public Boolean checkDateFormat(String date){
+        if (date == null || !date.matches("^(1[0-9]|0[1-9]|3[0-1]|2[1-9])/(0[1-9]|1[0-2])/[0-9]{4}$"))
+            return false;
+        SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            format.parse(date);
+            return true;
+        }catch (ParseException e){
+            return false;
+        }
+    }
+
 private void clickedsendtoall(){
     nametv=name.getText().toString().trim();
     percentagetv=percentage.getText().toString().trim();
     validtilltv=validtill.getText().toString().trim();
 
+
+
+     boolean bol= checkDateFormat(validtilltv);
+
+
+
     codetv=code.getText().toString().trim();
     etMsgtv=etMsg.getText().toString().trim();
 
-    if (!TextUtils.isEmpty(nametv) &&!TextUtils.isEmpty(percentagetv) &&!TextUtils.isEmpty(validtilltv) && !TextUtils.isEmpty(codetv)&& !TextUtils.isEmpty(etMsgtv)){
+    if (!TextUtils.isEmpty(nametv) &&!TextUtils.isEmpty(percentagetv) && bol==true && !TextUtils.isEmpty(codetv)&& !TextUtils.isEmpty(etMsgtv)){
         dialog.show();
 
         item.setDiscode(codetv);
         item.setDiscdercentage(percentagetv);
+
         item.setDiscvalidationdate(validtilltv);
         item.setDisname(nametv);
         item.setDiscountdetaials(etMsgtv);
