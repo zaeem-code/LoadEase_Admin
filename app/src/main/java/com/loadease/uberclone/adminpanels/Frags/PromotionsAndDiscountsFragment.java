@@ -99,6 +99,7 @@ new Home().add_PricingValue();
 
         rec.setAdapter(discountnfoRCAdopter);
         discountnfoRCAdopter.notifyDataSetChanged();
+
         if (dialog.isShowing()) {
             dialog.dismiss();
         }
@@ -157,7 +158,7 @@ private void clickedsendtoall(){
                                                                    code.setText("");
                                                                    etMsg.setText("");
 
-                                                                   new FCM_send_msg(getApplicationContext(),item.getDisname(),item.getDiscountdetaials());
+                                                                   new FCM_send_msg(getApplicationContext(),"Disc",item.getDiscountdetaials());
 getuserDAta();
 
                                                                }
