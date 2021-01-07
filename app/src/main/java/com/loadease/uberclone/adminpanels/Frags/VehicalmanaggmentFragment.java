@@ -130,7 +130,10 @@ dialog.show();
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-          online= Integer.parseInt(snapshot.getValue().toString().trim());
+                //
+                if (snapshot.exists()){
+                    online=Integer.parseInt(String.valueOf(snapshot.getChildrenCount()));
+                }
                 setdataup();
             }
             @Override
