@@ -132,8 +132,8 @@ private void clickedsendtoall(){
 
     codetv=code.getText().toString().trim();
     etMsgtv=etMsg.getText().toString().trim();
-
-    if (!TextUtils.isEmpty(nametv) &&!TextUtils.isEmpty(percentagetv) && bol==true && !TextUtils.isEmpty(codetv)&& !TextUtils.isEmpty(etMsgtv)){
+if (bol){
+    if (!TextUtils.isEmpty(nametv) &&!TextUtils.isEmpty(percentagetv) && !TextUtils.isEmpty(codetv)&& !TextUtils.isEmpty(etMsgtv)){
         dialog.show();
 
         item.setDiscode(codetv);
@@ -164,8 +164,11 @@ getuserDAta();
                                                                }
                                                            });
     }else {
-        Toast.makeText(this, "All the Fields must ne empty", Toast.LENGTH_SHORT).show();
-    }
+        Toast.makeText(this, "All the Fields must be filled!", Toast.LENGTH_SHORT).show();
+    }}else {
+    Toast.makeText(this, "Entered Date Must  be according to the format!", Toast.LENGTH_SHORT).show();
+
+}
 }
 
     private void clickedSendtospecific(){
@@ -194,7 +197,7 @@ getuserDAta();
         dialog.show();
         try {
 
-
+            DiscountArraylist.clear();
 myRef.addListenerForSingleValueEvent(new ValueEventListener() {
     @Override
     public void onDataChange(@NonNull DataSnapshot snapshot) {
