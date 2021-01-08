@@ -2,7 +2,6 @@ package com.loadease.uberclone.adminpanels.Messages;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
@@ -29,12 +28,12 @@ public class FCM_send_msg {
 String key;
     JSONObject notification = new JSONObject();
     JSONObject notifcationBody = new JSONObject();
-    public FCM_send_msg(Context context, String topic, String Message) {
+    public FCM_send_msg(Context context, String topic, String Message, String Title) {
         TOPIC=TOPIC+topic;
 
         try {
 
-            notifcationBody.put("title", "Action against your account");
+            notifcationBody.put("title", Title);
             notifcationBody.put("message",Message);
 
             notification.put("to", TOPIC);

@@ -8,13 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -166,11 +164,11 @@ private void setdriverVerificaion(String id, boolean b, DriverUser item){
     DatabaseReference myRef = database.getReference("RidersProfile").child(id);
     if (i>0) {
         if (b) {
-            new FCM_send_msg(context, item.getId(), "Verification process was successful, You can Proceed now");
+            new FCM_send_msg(context, item.getId(), "Verification process was successful, You can Proceed now","Vapprove");
             myRef.child("profile_status").setValue("verified");
         } else {
             myRef.child("profile_status").setValue("Nverified");
-            new FCM_send_msg(context, item.getId(), "You have been Restricted by LoadEase, Contact LoadEase office for more details");
+            new FCM_send_msg(context, item.getId(), "You have been Restricted by LoadEase, Contact LoadEase office for more details", "VNapprove");
 
         }
     }

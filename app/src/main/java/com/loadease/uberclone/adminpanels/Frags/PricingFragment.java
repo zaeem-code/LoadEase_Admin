@@ -151,15 +151,16 @@ String vehicalchk="Truck";
 db.addListenerForSingleValueEvent(new ValueEventListener() {
     @Override
     public void onDataChange(@NonNull DataSnapshot snapshot) {
-        Base.setText(snapshot.child("baseFare").getValue().toString());
-        time.setText(snapshot.child("timeRate").getValue().toString());
-        dis.setText(snapshot.child("distanceRate").getValue().toString());
-        if (dialog.isShowing()){
-            dialog.dismiss();
+        if (snapshot.exists()) {
+            Base.setText(snapshot.child("baseFare").getValue().toString());
+            time.setText(snapshot.child("timeRate").getValue().toString());
+            dis.setText(snapshot.child("distanceRate").getValue().toString());
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
+
         }
-
     }
-
     @Override
     public void onCancelled(@NonNull DatabaseError error) {
         if (dialog.isShowing()){

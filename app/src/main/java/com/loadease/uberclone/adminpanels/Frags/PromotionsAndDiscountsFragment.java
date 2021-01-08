@@ -158,7 +158,7 @@ private void clickedsendtoall(){
                                                                    code.setText("");
                                                                    etMsg.setText("");
 
-                                                                   new FCM_send_msg(getApplicationContext(),"Disc",item.getDiscountdetaials());
+                                                                   new FCM_send_msg(getApplicationContext(),"ALL",item.getDiscountdetaials(), "Dis");
 getuserDAta();
 
                                                                }

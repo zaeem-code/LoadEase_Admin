@@ -133,9 +133,10 @@ dialog.show();
                 //
                 if (snapshot.exists()){
                     online=Integer.parseInt(String.valueOf(snapshot.getChildrenCount()));
+
+                    setdataup();
                 }
                 //
-                setdataup();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

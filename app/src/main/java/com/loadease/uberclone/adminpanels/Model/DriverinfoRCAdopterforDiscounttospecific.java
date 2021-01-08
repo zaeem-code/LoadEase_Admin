@@ -2,13 +2,9 @@ package com.loadease.uberclone.adminpanels.Model;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +16,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.loadease.uberclone.adminpanels.Activities.DriverDetailActivity;
 import com.loadease.uberclone.adminpanels.Common.Common;
 import com.loadease.uberclone.adminpanels.Messages.FCM_send_msg;
 import com.loadease.uberclone.adminpanels.R;
@@ -116,7 +111,7 @@ int i=0;
                 public void onComplete(@NonNull Task<Void> task) {
                     Toast.makeText(context, "Assigned", Toast.LENGTH_SHORT).show();
 
-                   new FCM_send_msg(context,"ALL",itemfordis.discountdetaials);
+                   new FCM_send_msg(context,item.getId(),itemfordis.discountdetaials, item.getId()+"Dis");
                     btn.setText("Assigned");
 
                     notifyDataSetChanged();

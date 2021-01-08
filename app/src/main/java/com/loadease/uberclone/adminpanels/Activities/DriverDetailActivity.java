@@ -195,7 +195,7 @@ String id;
         myRef.child("blockedComments").setValue(txt);
 
         Toast.makeText(this, driver_name.getText().toString()+" is blocked Successfully", Toast.LENGTH_SHORT).show();
-        new FCM_send_msg(getApplicationContext(),id,"Note: You have been Blocked by LoadEase,  Signin For more Details");
+        new FCM_send_msg(getApplicationContext(),id,"Note: You have been Blocked by LoadEase,  Signin For more Details", "blocked");
 
         finish();
 
@@ -326,14 +326,14 @@ String id;
         if (b){
             myRef.child("profile_status").setValue("verified");
             if (chk1>0) {
-                new FCM_send_msg(getApplicationContext(), id, "Verification process was successful, You can Proceed now");
+                new FCM_send_msg(getApplicationContext(), id, "Verification process was successful, You can Proceed now", "Vapprove");
             }
             chk1++;
       }else {
 
             myRef.child("profile_status").setValue("Nverified");
             if (chk1 > 0) {
-                new FCM_send_msg(getApplicationContext(), id, "You have been Restricted by LoadEase, Contact LoadEase office for more details");
+                new FCM_send_msg(getApplicationContext(), id, "You have been Restricted by LoadEase, Contact LoadEase office for more details", "VNapprove");
             }
 
             chk1++;
@@ -345,7 +345,7 @@ String id;
 
             myRef.child("blocked").setValue("false");
             if (chk2>0) {
-                new FCM_send_msg(getApplicationContext(), id, "Congratulations: You have been UnBlocked by LoadEase");
+                new FCM_send_msg(getApplicationContext(), id, "Congratulations: You have been UnBlocked by LoadEase", "Nblocked");
 
 
         }
