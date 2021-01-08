@@ -113,32 +113,42 @@ root.findViewById(R.id.addpromo).setOnClickListener(new View.OnClickListener() {
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot:snapshot.getChildren())
-                {
-                    DatabaseReference db1=FirebaseDatabase.getInstance().getReference("Trips");
-                    db1.child(dataSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for (DataSnapshot snapshot1:snapshot.getChildren()) {
-                                if (snapshot1.child("trip_status").getValue() != null) {
-                                    if (snapshot1.child("trip_status").getValue().toString().trim().equals("complete")) {
-                                        Log.v("qqq", "completed");
-                                        Completed++;
-                                    } else {
+                if (snapshot.exists()) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        DatabaseReference db1 = FirebaseDatabase.getInstance().getReference("Trips");
+                        db1.child(dataSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+                                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                                        if (snapshot1.child("trip_status").getValue() != null) {
+                                            if (snapshot1.child("trip_status").getValue().toString().trim().equals("complete")) {
+                                                Log.v("qqq", "completed");
+                                                Completed++;
+                                            } else {
 
-                                        Log.v("qqq", "continue");
-                                        Continue++;
+                                                Log.v("qqq", "continue");
+                                                Continue++;
+                                            }
+
+                                            TotalRides++;
+                                        }
                                     }
+                                    setdataup();
+                                    getuserDriversdata();
+                                }else {
 
-                                    TotalRides++;
+                                    getuserDriversdata();
                                 }
                             }
-                            setdataup();
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                        }
-                    });
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                    }
+                }else{
+                    getuserDriversdata();
                 }
             }
             @Override
@@ -160,7 +170,7 @@ inprocesstv.setText(String.valueOf(Continue));
         complletetv.setText(String.valueOf(Completed));
         inprocesstv.setText(String.valueOf(Continue));
         cancelltv.setText(String.valueOf(0));
-        getuserDriversdata();
+
 
     }
 
@@ -173,15 +183,11 @@ int online,total;
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                total=Integer.parseInt(String.valueOf(snapshot.getChildrenCount()));
 
-                for (DataSnapshot dsp: snapshot.getChildren()){
-
-                    total++;
-
-
-                }
+             }
                 ccountdrivers();
-
             }
 
             @Override
@@ -202,15 +208,14 @@ int online,total;
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //
-           if (snapshot.exists()){
-               online=Integer.parseInt(String.valueOf(snapshot.getChildrenCount()));
-           }
+           if (snapshot.exists()) {
+               online = Integer.parseInt(String.valueOf(snapshot.getChildrenCount()));
 
-                totaldriveroutof.setText(online+"/"+total);
+
+               totaldriveroutof.setText(online + "/" + total);
+           }
                 getTotalprice();
-                if (dialog.isShowing()) {
-                    dialog.dismiss();
-                }
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -249,30 +254,39 @@ int online,total;
                             totalprice = totalprice + Double.parseDouble(dsp.child("price").getValue().toString().trim());
 
                         }
+                        if (dialog.isShowing()) {
+                            dialog.dismiss();
+                        }
+
+                        totalsale.setText(String.valueOf(Math.round(totalprice)));
+                        ArrayList<BarEntry> visitor = new ArrayList<>();
+                        visitor.add(new BarEntry(1, Math.round(totalprice)));
+                        visitor.add(new BarEntry(2, TotalRides));
+                        visitor.add(new BarEntry(3, total));
+
+
+                        BarDataSet barDataSet = new BarDataSet(visitor, "Revenue, Orders, Drivers");
+
+                        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+                        barDataSet.setValueTextColor(R.color.lightgray);
+                        barDataSet.setValueTextSize(16f);
+
+                        BarData barData = new BarData(barDataSet);
+                        barChart.setFitBars(true);
+                        barChart.setData(barData);
+                        barChart.getDescription().setText("Statistics");
+                        barChart.animateY(2000);
+
+                        if (dialog.isShowing()) {
+                            dialog.dismiss();
+                        }
+
+                    }else {
+                        if (dialog.isShowing()) {
+                            dialog.dismiss();
+
                     }
-                totalsale.setText(String.valueOf(Math.round(totalprice)));
-                    ArrayList<BarEntry> visitor= new ArrayList<>();
-                    visitor.add(new BarEntry(1,Math.round(totalprice)));
-                    visitor.add(new BarEntry(2,TotalRides));
-                    visitor.add(new BarEntry(3,total));
-
-
-                    BarDataSet barDataSet = new BarDataSet(visitor,"Revenue, Orders, Drivers") ;
-
-                    barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-                    barDataSet.setValueTextColor(R.color.lightgray);
-                    barDataSet.setValueTextSize(16f);
-
-                    BarData barData = new BarData(barDataSet);
-                    barChart.setFitBars(true);
-                    barChart.setData(barData);
-                    barChart.getDescription().setText("Statistics");
-                    barChart.animateY(2000) ;
-
-                    if (dialog.isShowing()) {
-                        dialog.dismiss();
                     }
-
                 }
 
                 @Override

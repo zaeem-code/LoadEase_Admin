@@ -28,11 +28,12 @@ import java.util.ArrayList;
 public class VehicalmanaggmentFragment extends Fragment {
     RecyclerView driver_rcy;
     com.budiyev.android.circularprogressbar.CircularProgressBar prgblock, prgonline, prgoffline;
-    TextView tvblocked, tvonlineper, tvofflineper,inprocesxs,completed,cancelled,totaltv;
+    TextView tvblocked, tvonlineper, tvofflineper, inprocesxs, completed, cancelled, totaltv;
     ProgressDialog dialog;
 
     CarinfoRCAdopter carinfoRCAdopter;
-    ArrayList<DriverUser> driverinfo=new ArrayList<>();
+    ArrayList<DriverUser> driverinfo = new ArrayList<>();
+
     public VehicalmanaggmentFragment() {
         // Required empty public constructor
     }
@@ -48,26 +49,25 @@ public class VehicalmanaggmentFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
 
-
         View root = inflater.inflate(R.layout.fragment_vehicalmanagment, container, false);
-          dialog = new ProgressDialog(getActivity());
+        dialog = new ProgressDialog(getActivity());
         dialog.setMessage("Loading...");
 
 
-        prgoffline =root.findViewById(R.id.prgoffline);
-        prgonline =root.findViewById(R.id.prgonline);
-        prgblock=root.findViewById(R.id.prgblock);
+        prgoffline = root.findViewById(R.id.prgoffline);
+        prgonline = root.findViewById(R.id.prgonline);
+        prgblock = root.findViewById(R.id.prgblock);
 
-        driver_rcy=root.findViewById(R.id.driver_rcy);
+        driver_rcy = root.findViewById(R.id.driver_rcy);
 
-        tvblocked =root.findViewById(R.id.blockedper);
-        tvofflineper =root.findViewById(R.id.offlineper);
-        tvonlineper =root.findViewById(R.id.onlineper);
+        tvblocked = root.findViewById(R.id.blockedper);
+        tvofflineper = root.findViewById(R.id.offlineper);
+        tvonlineper = root.findViewById(R.id.onlineper);
 
-        inprocesxs =root.findViewById(R.id.unverifiedtxt);
-        completed =root.findViewById(R.id.textcomp);
-        cancelled =root.findViewById(R.id.canceltxt);
-        totaltv =root.findViewById(R.id.total);
+        inprocesxs = root.findViewById(R.id.unverifiedtxt);
+        completed = root.findViewById(R.id.textcomp);
+        cancelled = root.findViewById(R.id.canceltxt);
+        totaltv = root.findViewById(R.id.total);
 
 
         return root;
@@ -80,37 +80,44 @@ public class VehicalmanaggmentFragment extends Fragment {
     }
 
 
-    int blocked=0,verified=0,unverified=0,total=0,online=0;
+    int blocked = 0, verified = 0, unverified = 0, total = 0, online = 0;
 
 
-    private void getuserDAta(){
+    private void getuserDAta() {
         driverinfo.clear();
-        blocked=0;verified=0;unverified=0;total=0;online=0;
-dialog.show();
+        blocked = 0;
+        verified = 0;
+        unverified = 0;
+        total = 0;
+        online = 0;
+        dialog.show();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("RidersProfile");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
 
-                for (DataSnapshot dsp: snapshot.getChildren()){
-                    Log.v("Admin","------> "+dsp);
+                    for (DataSnapshot dsp : snapshot.getChildren()) {
+                        Log.v("Admin", "------> " + dsp);
 
 
-                    driverinfo.add(dsp.getValue(DriverUser.class));
-                    if (dsp.child("blocked").getValue().equals("true")){
-                        blocked++;
+                        driverinfo.add(dsp.getValue(DriverUser.class));
+                        if (dsp.child("blocked").getValue().equals("true")) {
+                            blocked++;
+                        }
+
+                        if (dsp.child("profile_status").getValue().equals("verified")) {
+                            verified++;
+                        } else {
+                            unverified++;
+                        }
+                        total++;
+
+
                     }
-
-                    if (dsp.child("profile_status").getValue().equals("verified")){
-                        verified++;
-                    }else {
-                        unverified++;
-                    }
- total++;
-
-
                 }
+
                 ccountdrivers();
 
             }
@@ -125,60 +132,68 @@ dialog.show();
 
     }
 
-    private void ccountdrivers(){
-        DatabaseReference db=FirebaseDatabase.getInstance().getReference("onlineDriver").child("count");
+    private void ccountdrivers() {
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference("onlineDriver").child("count");
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //
-                if (snapshot.exists()){
-                    online=Integer.parseInt(String.valueOf(snapshot.getChildrenCount()));
+                if (snapshot.exists()) {
+                    online = Integer.parseInt(String.valueOf(snapshot.getChildrenCount()));
 
-                    setdataup();
                 }
+
+                setdataup();
                 //
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
     }
 
-    private void  setdataup(){
+    private void setdataup() {
+        try {
 
-prgblock.setMaximum(total+.01f);
-prgblock.setProgress(blocked+.01f);
-
-
-prgoffline.setMaximum(total+.01f);
-prgoffline.setProgress(total-online+.01f);
+            prgblock.setMaximum(total + .01f);
+            prgblock.setProgress(blocked + .01f);
 
 
-
-        prgonline.setMaximum(total+.01f);
-        prgonline.setProgress(online+.01f);
-
-        /// blocked per
-        tvblocked.setText(((blocked/total)*100)+"%");
-        tvonlineper.setText(((online/total)*100)+"%");
-        tvofflineper.setText((((total-online)/total)*100)+"%");
-        inprocesxs.setText(String.valueOf(unverified));
-        completed.setText(String.valueOf(verified));
-        cancelled.setText(String.valueOf(blocked));
-        totaltv.setText(String.valueOf(total));
+            prgoffline.setMaximum(total + .01f);
+            prgoffline.setProgress(total - online + .01f);
 
 
-        driver_rcy.setLayoutManager(new LinearLayoutManager(getActivity()));
-        carinfoRCAdopter =new CarinfoRCAdopter(driverinfo,getActivity());
+            prgonline.setMaximum(total + .01f);
+            prgonline.setProgress(online + .01f);
 
-        driver_rcy.setAdapter(carinfoRCAdopter);
-        carinfoRCAdopter.notifyDataSetChanged();
+            /// blocked per
+            tvblocked.setText(((blocked / total) * 100) + "%");
+            tvonlineper.setText(((online / total) * 100) + "%");
+            tvofflineper.setText((((total - online) / total) * 100) + "%");
+            inprocesxs.setText(String.valueOf(unverified));
+            completed.setText(String.valueOf(verified));
+            cancelled.setText(String.valueOf(blocked));
+            totaltv.setText(String.valueOf(total));
+
+
+            driver_rcy.setLayoutManager(new LinearLayoutManager(getActivity()));
+            carinfoRCAdopter = new CarinfoRCAdopter(driverinfo, getActivity());
+
+            driver_rcy.setAdapter(carinfoRCAdopter);
+            carinfoRCAdopter.notifyDataSetChanged();
+            if (dialog.isShowing()) {
+                dialog.dismiss();
+            }
+
+        } catch (Exception e) {
+
+        }
         if (dialog.isShowing()) {
             dialog.dismiss();
         }
+
     }
 
-
 }
-
 
