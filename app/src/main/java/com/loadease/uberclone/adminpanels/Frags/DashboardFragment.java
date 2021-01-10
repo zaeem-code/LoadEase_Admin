@@ -45,6 +45,8 @@ public class DashboardFragment extends Fragment {
 
     BarChart barChart;
     int TotalRides,Continue,Completed,TargetRides;
+    int online,total;
+    Double totalprice;
 TextView Totalrideperx,totalridestv,inprocesstv,complletetv,cancelltv,totalsale,totaldriveroutof,todate;
     com.budiyev.android.circularprogressbar.CircularProgressBar  totalpercentageprg;
     public DashboardFragment() {
@@ -97,12 +99,16 @@ root.findViewById(R.id.addpromo).setOnClickListener(new View.OnClickListener() {
         totalsale=root.findViewById(R.id.totalsale);
         totaldriveroutof=root.findViewById(R.id.totaldriveroutof);
         todate=root.findViewById(R.id.todate);
-        getuserDAta();
+
         return root;
 
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        getuserDAta();
+    }
 
     private void getuserDAta(){
 
@@ -134,47 +140,25 @@ root.findViewById(R.id.addpromo).setOnClickListener(new View.OnClickListener() {
                                             TotalRides++;
                                         }
                                     }
-                                    setdataup();
-                                    getuserDriversdata();
-                                }else {
-
-                                    getuserDriversdata();
-                                }
-                            }
+                                } }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
                             }
                         });
                     }
-                }else{
-                    getuserDriversdata();
                 }
+                    getuserDriversdata();
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                getuserDAta();
             }
         });
     }
 
-    private void  setdataup(){
-Log.v("datachk",Completed+"/"+TargetRides+" ="+(Completed/TargetRides)*100);
-        totalpercentageprg.setMaximum(TargetRides+.01f);
-        totalpercentageprg.setProgress(Completed+.01f);
 
-
-        Totalrideperx.setText(((Completed*100   /TargetRides))+"%");
-
-        totalridestv.setText(String.valueOf(TotalRides));
-inprocesstv.setText(String.valueOf(Continue));
-        complletetv.setText(String.valueOf(Completed));
-        inprocesstv.setText(String.valueOf(Continue));
-        cancelltv.setText(String.valueOf(0));
-
-
-    }
-
-int online,total;
 
     private void getuserDriversdata(){
      total=0;
@@ -187,6 +171,9 @@ int online,total;
                 total=Integer.parseInt(String.valueOf(snapshot.getChildrenCount()));
 
              }
+
+
+
                 ccountdrivers();
             }
 
@@ -212,20 +199,19 @@ int online,total;
                online = Integer.parseInt(String.valueOf(snapshot.getChildrenCount()));
 
 
-               totaldriveroutof.setText(online + "/" + total);
            }
                 getTotalprice();
 
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                ccountdrivers();
             }
         });
     }
 
-    Double totalprice=0.0;
     private void getTotalprice(){
-
+        totalprice=0.0;
         String curr_Time="";
         SimpleDateFormat _24HourSDF;
         SimpleDateFormat _12HourSDF;
@@ -254,48 +240,68 @@ int online,total;
                             totalprice = totalprice + Double.parseDouble(dsp.child("price").getValue().toString().trim());
 
                         }
-                        if (dialog.isShowing()) {
-                            dialog.dismiss();
-                        }
-
-                        totalsale.setText(String.valueOf(Math.round(totalprice)));
-                        ArrayList<BarEntry> visitor = new ArrayList<>();
-                        visitor.add(new BarEntry(1, Math.round(totalprice)));
-                        visitor.add(new BarEntry(2, TotalRides));
-                        visitor.add(new BarEntry(3, total));
-
-
-                        BarDataSet barDataSet = new BarDataSet(visitor, "Revenue, Orders, Drivers");
-
-                        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-                        barDataSet.setValueTextColor(R.color.lightgray);
-                        barDataSet.setValueTextSize(16f);
-
-                        BarData barData = new BarData(barDataSet);
-                        barChart.setFitBars(true);
-                        barChart.setData(barData);
-                        barChart.getDescription().setText("Statistics");
-                        barChart.animateY(2000);
-
-                        if (dialog.isShowing()) {
-                            dialog.dismiss();
-                        }
-
-                    }else {
-                        if (dialog.isShowing()) {
-                            dialog.dismiss();
 
                     }
-                    }
+                        setdataup();
+
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
+                    getTotalprice();
                 }
             });
         }
 
     }
 
+    private void  setdataup(){
+
+
+        if (dialog.isShowing()) {
+            dialog.dismiss();
+        }
+
+        ArrayList<BarEntry> visitor = new ArrayList<>();
+        visitor.add(new BarEntry(1, Math.round(totalprice)));
+        visitor.add(new BarEntry(2, TotalRides));
+        visitor.add(new BarEntry(3, total));
+
+
+        BarDataSet barDataSet = new BarDataSet(visitor, "Revenue, Orders, Drivers");
+
+        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        barDataSet.setValueTextColor(R.color.lightgray);
+        barDataSet.setValueTextSize(16f);
+
+        BarData barData = new BarData(barDataSet);
+        barChart.setFitBars(true);
+        barChart.setData(barData);
+        barChart.getDescription().setText("Statistics");
+        barChart.animateY(2000);
+
+
+
+
+        Log.v("datachk",Completed+"/"+TargetRides+" ="+(Completed/TargetRides)*100);
+        totalpercentageprg.setMaximum(TargetRides+.01f);
+        totalpercentageprg.setProgress(Completed+.01f);
+
+
+        totalsale.setText(String.valueOf(Math.round(totalprice)));
+
+        totaldriveroutof.setText(online + "/" + total);
+if (TargetRides!=0){
+        Totalrideperx.setText(((Completed*100   /TargetRides))+"%");}
+
+        totalridestv.setText(String.valueOf(TotalRides));
+        inprocesstv.setText(String.valueOf(Continue));
+        complletetv.setText(String.valueOf(Completed));
+        inprocesstv.setText(String.valueOf(Continue));
+        cancelltv.setText(String.valueOf(0));
+        if (dialog.isShowing()) {
+            dialog.dismiss();
+        }
+
+    }
 }

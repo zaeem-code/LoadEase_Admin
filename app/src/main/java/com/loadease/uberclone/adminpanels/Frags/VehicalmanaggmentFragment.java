@@ -76,18 +76,18 @@ public class VehicalmanaggmentFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        getuserDAta();
+        VehicalVerificationchk();
     }
 
 
-    int blocked = 0, verified = 0, unverified = 0, total = 0, online = 0;
+    int blocked = 0, verified = 0, Inprogress = 0, total = 0, online = 0;
 
 
-    private void getuserDAta() {
+    private void VehicalVerificationchk() {
         driverinfo.clear();
         blocked = 0;
         verified = 0;
-        unverified = 0;
+        Inprogress = 0;
         total = 0;
         online = 0;
         dialog.show();
@@ -106,25 +106,58 @@ public class VehicalmanaggmentFragment extends Fragment {
                         if (dsp.child("blocked").getValue().equals("true")) {
                             blocked++;
                         }
-
+                        else
                         if (dsp.child("profile_status").getValue().equals("verified")) {
                             verified++;
                         } else {
-                            unverified++;
+                            Inprogress++;
                         }
                         total++;
 
 
                     }
                 }
-
-                ccountdrivers();
+                getCArrDAta();
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                getuserDAta();
+                VehicalVerificationchk();
+            }
+        });
+
+        ///
+
+    }
+    private void getCArrDAta() {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("DriversInformation");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+
+                    for (DataSnapshot dsp : snapshot.getChildren()) {
+                        Log.v("Admin", "------> " + dsp);
+
+                        if (dsp.child("profile_status").getValue().toString().trim().equals("incomplete")) {
+
+                            Inprogress++;
+                        }
+
+
+                    }
+                }
+
+                ccounOnlinetdrivers();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                VehicalVerificationchk();
             }
         });
 
@@ -132,7 +165,7 @@ public class VehicalmanaggmentFragment extends Fragment {
 
     }
 
-    private void ccountdrivers() {
+    private void ccounOnlinetdrivers() {
         DatabaseReference db = FirebaseDatabase.getInstance().getReference("onlineDriver").child("count");
         db.addValueEventListener(new ValueEventListener() {
             @Override
@@ -168,10 +201,12 @@ public class VehicalmanaggmentFragment extends Fragment {
             prgonline.setProgress(online + .01f);
 
             /// blocked per
-            tvblocked.setText(((blocked / total) * 100) + "%");
-            tvonlineper.setText(((online / total) * 100) + "%");
-            tvofflineper.setText((((total - online) / total) * 100) + "%");
-            inprocesxs.setText(String.valueOf(unverified));
+            if (total!=0){
+            tvblocked.setText((((blocked * 100) / total)) + "%");
+            tvonlineper.setText((((online * 100) / total)) + "%");
+            tvofflineper.setText(((((total - online) * 100)/ total)) + "%");}
+
+            inprocesxs.setText(String.valueOf(Inprogress));
             completed.setText(String.valueOf(verified));
             cancelled.setText(String.valueOf(blocked));
             totaltv.setText(String.valueOf(total));
