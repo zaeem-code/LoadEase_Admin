@@ -98,14 +98,27 @@ RecyclerView driver_rcy;
 myRef.addListenerForSingleValueEvent(new ValueEventListener() {
     @Override
     public void onDataChange(@NonNull DataSnapshot snapshot) {
-        driverinfo.clear();
-        for (DataSnapshot dsp: snapshot.getChildren()){
-            Log.v("Admin","------> "+dsp);
+         if (snapshot.exists()) {
+            for (DataSnapshot dsp : snapshot.getChildren()) {
+                Log.v("Admin", "------> " + dsp);
 
-approved++;
-    driverinfo.add(dsp.getValue(DriverUser.class));
-}
 
+                if (dsp.child("blocked").getValue().toString().trim().equals("true")) {
+                    Log.v("testinegX","blocked");
+                    blocked++;
+                } else if (dsp.child("profile_status").getValue().toString().trim().equals("verified")) {
+
+                    Log.v("testinegX","verified");
+                    approved++;
+                } else {
+                    pending++;
+
+                    Log.v("testinegX","Pending");
+                }
+                driverinfo.add(dsp.getValue(DriverUser.class));
+//                Log.v("testingX",blocked+"; verfi"+approved+"; pending"+pending);
+            }
+        }
 
             setuprc();
 
